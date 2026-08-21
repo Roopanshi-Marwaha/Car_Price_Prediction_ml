@@ -34,9 +34,12 @@
                     <div class="col-10 form-group" style="text-align: center">
                       <label><b>Select Company: </b></label>
                       <select class="selectpicker form-control" id="company" name="company" required="1">
-                        <option value="">
 
+                        {% for company in companies %}
+                        <option value="{{company}}">
+                          {{company}}
                         </option>
+                        {% endfor %} #Jinja
                       </select>
                     </div>
 
