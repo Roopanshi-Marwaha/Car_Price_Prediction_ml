@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="col-10 form-group" style="text-align: center">
-                      <button class="btn btn-primary form-control" onclick="">Predict Price</button>
+                      <button class="btn btn-primary form-control" onclick="send_data()">Predict Price</button>
                     </div>
 
                   </form>
@@ -119,6 +119,19 @@
             window.onload = function(){
                 load_car_models('company', 'car_model');
             };
+
+            function form_handler(event){
+                event.preventDefault();
+            //     form ka default behavior prevent hoga
+            }
+
+            function send_data(){
+                //suppress form default behavior
+                document.querySelector('form').addEventListener('submit',form_handler);
+
+
+                //send and recieve data to /predict
+            }
     </script>
 
     <!-- Optional JavaScript -->
