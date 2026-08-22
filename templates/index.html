@@ -33,40 +33,45 @@
 
                     <div class="col-10 form-group" style="text-align: center">
                       <label><b>Select Company: </b></label>
-                      <select class="selectpicker form-control" id="company" name="company" required="1">
+                      <select class="selectpicker form-control" id="company" name="company" required="1" onchange="load_car_models(this.id,'car_model')">
 
                         {% for company in companies %}
                         <option value="{{company}}">
                           {{company}}
                         </option>
-                        {% endfor %} #Jinja
+                        {% endfor %}
+<!--                    Jinja loop ends here -->
                       </select>
                     </div>
 
                     <div class="col-10 form-group" style="text-align: center">
                       <label><b>Select Model: </b></label>
                       <select class="selectpicker form-control" id="car_model" name="car_model" required="1">
-                        <option value="">
 
-                        </option>
                       </select>
                     </div>
 
                     <div class="col-10 form-group" style="text-align: center">
                       <label><b>Select Year of Purchase: </b></label>
                       <select class="selectpicker form-control" id="year" name="year" required="1">
-                        <option value="">
 
+                          {% for year in years %}
+                        <option value="{{year}}">
+                          {{year}}
                         </option>
+                        {% endfor %}
+
                       </select>
                     </div>
 
                     <div class="col-10 form-group" style="text-align: center">
                       <label><b>Select Fuel Type: </b></label>
                       <select class="selectpicker form-control" id="fuel_type" name="fuel_type" required="1">
-                        <option value="">
-
+                        {% for fuel_type in fuel_types %}
+                        <option value="{{fuel_type}}">
+                          {{fuel_type}}
                         </option>
+                        {% endfor %}
                       </select>
                     </div>
 
@@ -89,6 +94,32 @@
         </div>
     </div>
 
+<!--    javascript function-->
+        <script>
+            function load_car_models(company_id, car_model_id){
+                var company = document.getElementById(company_id);
+                var car_model = document.getElementById(car_model_id);
+                car_model.length = 0;
+                // kali kar lenge pehle so ja hai taki old company ke models na aya jaye new ke sath
+
+                {% for company in companies %}
+                if(company.value === "{{company}}"){
+                    {% for model in car_models %}
+                        {% if company in model %}
+                            var newOption = document.createElement("option");
+                            newOption.value = "{{model}}";
+                            newOption.innerHTML = "{{model}}";
+                            car_model.options.add(newOption);
+                        {% endif %}
+                    {% endfor %}
+                }
+                {% endfor %}
+            }
+
+            window.onload = function(){
+                load_car_models('company', 'car_model');
+            };
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
